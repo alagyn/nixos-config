@@ -9,10 +9,23 @@
         driSupport32Bit = true;
     };
 
-    # Load nvidia driver for Xorg and Wayland
-    services.xserver.videoDrivers = ["nvidia"];
-
     services.thermald.enable = true;
+
+    services.xserver = 
+    {
+        # Enable the X11 windowing system.
+        enable = true;
+        # Enable SDDM and Plasma
+        displayManager.sddm.enable = true;
+        desktopManager.plasma5.enable = true;
+        # Fix touch and drag delay
+        libinput.touchpad.tappingDragLock = false;
+        # Configure keymap
+        layout = "us";
+        xkbVariant = "";
+        # Enable display drivers
+        videoDrivers = [ "nvidia" ];
+    };
 
     hardware.nvidia = {
         prime = {

@@ -56,6 +56,8 @@
             timeoutStyle = "menu";
             backgroundColor = "#242424";
         };
+        # Set no timeout
+        timeout=null;
     };
 
     # enable ntfs to mount windows drive    
@@ -81,22 +83,6 @@
         LC_PAPER = "en_US.UTF-8";
         LC_TELEPHONE = "en_US.UTF-8";
         LC_TIME = "en_US.UTF-8";
-    };
-
-    services.xserver = 
-    {
-        # Enable the X11 windowing system.
-        enable = true;
-        # Enable SDDM and Plasma
-        displayManager.sddm.enable = true;
-        desktopManager.plasma5.enable = true;
-        # Fix touch and drag delay
-        libinput.touchpad.tappingDragLock = false;
-        # Configure keymap
-        layout = "us";
-        xkbVariant = "";
-        # Enable display drivers
-        videoDrivers = [ "modeset" "nvidia" ];
     };
 
     # Enable CUPS to print documents.
