@@ -22,7 +22,9 @@
     # Load windows drive
     fileSystems."/windows" = 
     {
-        device = "/dev/nvme1n1p3";
+        # check uuids with:
+        # ls -l /dev/disk/by-uuid/
+        device = "/dev/disk/by-uuid/B6F20479F204405B";
         fsType = "ntfs-3g";
         options = ["rw" "uid=1000" "nofail"];
     };
@@ -105,6 +107,23 @@
         # use the example session manager (no others are packaged yet so this is enabled by default,
         # no need to redefine it in your config for now)
         #media-session.enable = true;
+    };
+
+    networking.interfaces."enp52s0" = 
+    {
+        useDHCP = true;
+    };
+
+    #networking.networkmanager.dns = "dnsmasq";
+
+    services.dnsmasq.enable = false;
+    services.dnsmasq.settings = 
+    {
+        domain-needed = true;
+        domain-suffix = "local";
+        dhcp-authoritative = true;
+        interface = "enp52s0";
+        dhcp-range = "192.168.0.101,192.168.0.150,255.255.255.0,6h";
     };
 
     # This value determines the NixOS release from which the default

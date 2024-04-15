@@ -14,8 +14,8 @@
         cmakeCurses
         yakuake
         obsidian
-        dhcpcd
         pciutils
+        docker
     ];
 
     # Enable for Obsidian, insecure because EOL
