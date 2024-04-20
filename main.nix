@@ -26,7 +26,25 @@
         # ls -l /dev/disk/by-uuid/
         device = "/dev/disk/by-uuid/B6F20479F204405B";
         fsType = "ntfs-3g";
-        options = ["rw" "uid=1000" "nofail"];
+        options = [
+            "rw" 
+            # set "owner" IDs
+            "uid=1000" 
+            "gid=1000" 
+            
+            # always boot even if this drive is unavailable
+            "nofail" 
+        ];
+    };
+
+    # Fuse filesystem that returns symlinks to executables based on the PATH of the requesting process. 
+    # This is useful to execute shebangs on NixOS that assume hard coded locations in locations like /bin or /usr/bin etc.
+    services.envfs.enable = true;
+
+    # enable docker
+    virtualisation.docker = 
+    {
+        enable = true;
     };
 
     # Use the latest kernel
@@ -62,11 +80,8 @@
         timeout=null;
     };
 
-    # enable ntfs to mount windows drive    
+    # enable ntfs to mount windows drive
     boot.supportedFilesystems = [ "ntfs" ];
-
-    # Enable networking
-    networking.networkmanager.enable = true;
 
     # Set your time zone.
     time.timeZone = "America/New_York";
@@ -109,21 +124,12 @@
         #media-session.enable = true;
     };
 
+
+    # Enable networking
+    networking.networkmanager.enable = true;
     networking.interfaces."enp52s0" = 
     {
         useDHCP = true;
-    };
-
-    #networking.networkmanager.dns = "dnsmasq";
-
-    services.dnsmasq.enable = false;
-    services.dnsmasq.settings = 
-    {
-        domain-needed = true;
-        domain-suffix = "local";
-        dhcp-authoritative = true;
-        interface = "enp52s0";
-        dhcp-range = "192.168.0.101,192.168.0.150,255.255.255.0,6h";
     };
 
     # This value determines the NixOS release from which the default
