@@ -23,15 +23,14 @@ in
         teamviewer
         nodejs
         aseprite
+        gnumake
+        gcc
 
         unstable.vscode
         unstable.vivaldi
         unstable.vivaldi-ffmpeg-codecs
         unstable.obsidian
     ];
-
-    # Enable for Obsidian, insecure because EOL
-    #nixpkgs.config.permittedInsecurePackages = [ "electron-25.9.0" ];
 
     services.teamviewer.enable = true;
 

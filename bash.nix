@@ -4,6 +4,11 @@
 
     programs.bash.promptInit = builtins.readFile ./bash_prompt.sh;
     
+    # Fix for missing libstdc++
+    environment.variables = {
+        LD_LIBRARY_PATH = "${pkgs.stdenv.cc.cc.lib}/lib";
+    };
+
     # Nano settings
     programs.nano.nanorc = ''
     set tabstospaces
@@ -13,4 +18,5 @@
     set indicator
     set linenumbers
     '';
+
 } 
